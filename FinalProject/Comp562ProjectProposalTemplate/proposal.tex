@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{fullpage}
+\title{A novel model of prey behavior}
+\author{Wille E. Coyote}
+\begin{document}
+\maketitle
+\paragraph{Problem and its relevance to health}
+High mortality among Canis latrans (coyote) involved in discovery, chase and capture of Geococcyx Californianus (road runner) and Lepus timidus
+ (hare) can be attributed to poor modeling of the natural movement patterns of the prey. Better understanding movement and evasion patterns of prey is likely to 
+lead to a better hunting strategy and diminish the mortality among Coyotes of all ages.
+
+\paragraph{The data}
+Warner Bros have over a period from 1949 to 2010 measured accurately a variety of evasive maneuvers. High-throughput measurement technology yielded close tracking of the animals through various stages of evasion. In addition, the company has genotyped each animal with their EvasionChip, a 100,000 SNP chip. The SNPs were chosen by their proximity to genes known or suspected to affect Evasion behavior in the prey and can be corresponded between the two species.
+
+\paragraph{The model}
+I propose to build a probabilistic model of evasive tactics of the two species ...
+I will model a target prey's position using a Hidden Markov Model. The hidden states will range over a pool of evasive tactics surveyed in a recent article\cite{Baskerville:2011}. Further, I will assume that given a choice of current evasive tactic and prey's current position, the subsequent time-slice position can be accurately predicted using  a detailed kinematic model of evasive maneuvers recently published in \cite{Mangey:2011}. The key assumption in our model is that preferences for transition between different evasive maneuvers are genetically determined and transition matrices can be associated with a small subset of SNPs.
+
+\paragraph{Secret sauce, if any}
+I will employ a Lupine prior on transition matrices prefers sparse transition matrices and captures dependencies of transition probabilities between maneuvers on maneuver-features. Using a procedure reminiscent of automated relevance determination, enables robust recovery of relevant maneuver-features and their effect on transition matrices. The resulting transition matrices can be robustly associated with SNPs in our datasets ...
+
+\paragraph{How the model will be evaluated}
+I will evaluate performance of this method by using a held out dataset collected by our collaborators in New Mexico ...
+The metric we will use is the prediction error of a prey's location ... We will also perform bootstrap analysis to assess the sensitivity of our associations between evasion technique transitions and SNPs
+
+\paragraph{Anticipated challenges}
+It is possible that the two species employ different evasive maneuvers and a joint model might lead to blurring of the two behaviors.
+We will perform model selection and compare the performance of joint model vs. separate models for the two datasets. Regardless of outcome, this will result in
+ useful observations about the similarities and differences of the two species.
+
+\paragraph{The promise}
+Given the increasing costs in lupine health insurance, improvement in understanding prey evasive tactics could lead to reduction in hunt-related injuries and subsequently to significant reduction in health related costs.
+
+\bibliographystyle{plain}
+\bibliography{evasion}
+
+\end{document}
