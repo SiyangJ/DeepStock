@@ -6,13 +6,13 @@
 \begin{document}
 \maketitle
 \paragraph{Problem and its relevance to investments}
-Stock price predictability is one of the most important concerns for investors. Previous studies have mostly focused on stock price prediction at a low frequency. As machine learning techniques evolve in the area of finance, there has been growing interest in high frequency algorithmic trading. \cite{Kearns2013}. With the increasing availability of high frequency trading data, better understanding of trading pattern will likely to lead to better prediction of stock price.
+Stock price predictability is one of the most important concerns for investors. Previous studies have mostly focused on stock price prediction at a low frequency. As machine learning techniques evolve in the area of finance, there has been growing interest in high frequency algorithmic trading \cite{Kearns2013}. With the increasing availability of high frequency trading data, better understanding of trading pattern will likely to lead to better prediction of stock price.
 
 \paragraph{The data}
 Quantopian(www.quantopian.com) has ongoing minute-level US equity pricing and volume data since January 1, 2002. We plan to use the data of 50 largest stocks as ranked by market capitalization. We conjecture that past stock returns are related with not only its own future returns but also the future returns of other stocks, and thus use 500 dimensional lagged stock returns (50 stocks and 10 lagged returns) as raw level input data. This large input makes deep learning a particularly suitable choice.
 
 \paragraph{The model}
-Following the practice in the research of Chong et al. \cite{Chong2017}, our model takes the form of
+Following the practice in the research of Chong et al.\cite{Chong2017}, our model takes the form of
 $r_{t+1}=f\circ\phi(R_t)+\gamma,\,\gamma\sim\mathcal{N}(0,\beta)$.
 We assume the return of one hour prior to the current time point has influence on the return of the stock in the next minute, so $t$ is in unit of minutes. As mentioned above, $R_t = [r_{1,t},...,r_{1,t-60},...,r_{50,t},...,r_{50,t-60}]^T$ is the 500 dimensional raw level input vector. $\phi$ transforms the data to features, or representations, and will be learned by principal component analysis, autoencoder, restricted Boltzmann machine, and other unsupervised learning techniques. $f$ is the predictor function, and will be learned using recurrent neural network (RNN), which seems to be the state of the art deep learning method for financial time series data analysis \cite{Abe2018}.
 
