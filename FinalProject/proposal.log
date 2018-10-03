@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  2 OCT 2018 22:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  2 OCT 2018 23:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -73,11 +73,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 Here is how much of TeX's memory you used:
  296 strings out of 492649
  3654 string characters out of 6129622
- 63174 words of memory out of 5000000
+ 64174 words of memory out of 5000000
  4239 multiletter control sequences out of 15000+600000
  7934 words of font info for 28 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 29i,11n,20p,733b,320s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,11n,20p,716b,320s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/font
 s/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/
@@ -93,7 +93,7 @@ fonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmti10.pfb>
-Output written on proposal.pdf (2 pages, 149496 bytes).
+Output written on proposal.pdf (2 pages, 149544 bytes).
 PDF statistics:
  67 PDF objects out of 1000 (max. 8388607)
  48 compressed objects within 1 object stream
