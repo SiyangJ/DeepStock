@@ -1,37 +1,34 @@
 \documentclass{article}
 \usepackage{fullpage}
-\title{A novel model of prey behavior}
-\author{Wille E. Coyote}
+\usepackage[utf8]{inputenc}
+\title{Stock Price Prediction with Deep Learning and Feature Engineering}
+\author{Yuhui Huang, Siyang Jing\thanks{Corresponding author.}, Jiacheng Tian, Jiyu Xu}
 \begin{document}
 \maketitle
-\paragraph{Problem and its relevance to health}
-High mortality among Canis latrans (coyote) involved in discovery, chase and capture of Geococcyx Californianus (road runner) and Lepus timidus
- (hare) can be attributed to poor modeling of the natural movement patterns of the prey. Better understanding movement and evasion patterns of prey is likely to 
-lead to a better hunting strategy and diminish the mortality among Coyotes of all ages.
+\paragraph{Problem and its relevance to investments}
+Stock price predictability is one of the most important concerns for investors. As machine learning technique evolve in the area of economy, there has been growing interest in high frequency algorithmic trading. Previous studies have mostly focused on stock price prediction at a low frequency, and high frequency prediction studies haven been uncommon \cite{Kearns2013}. With the increasing availability of high-frequency trading data, better understanding of trading pattern will likely to lead to better prediction of stock price.
 
 \paragraph{The data}
-Warner Bros have over a period from 1949 to 2010 measured accurately a variety of evasive maneuvers. High-throughput measurement technology yielded close tracking of the animals through various stages of evasion. In addition, the company has genotyped each animal with their EvasionChip, a 100,000 SNP chip. The SNPs were chosen by their proximity to genes known or suspected to affect Evasion behavior in the prey and can be corresponded between the two species.
+Quantopian(www.quantopian.com) has ongoing minute-level US equity pricing and volume data since January 1, 2002. We plan to use the data of 50 largest stocks as ranked by market capitalization. We conjecture that, due to correlation, past stock returns affect not only its own future returns but also the future returns of other stocks, and use 500 dimensional lagged stock returns (50 stocks and 10 lagged returns) as raw level input data. This large input dataset makes deep learning a particularly suitable choice for our research. The data from 2002 to 2017 will be used in the training set and the data from 2017 will be used in the testing set.
 
 \paragraph{The model}
-I propose to build a probabilistic model of evasive tactics of the two species ...
-I will model a target prey's position using a Hidden Markov Model. The hidden states will range over a pool of evasive tactics surveyed in a recent article\cite{Baskerville:2011}. Further, I will assume that given a choice of current evasive tactic and prey's current position, the subsequent time-slice position can be accurately predicted using  a detailed kinematic model of evasive maneuvers recently published in \cite{Mangey:2011}. The key assumption in our model is that preferences for transition between different evasive maneuvers are genetically determined and transition matrices can be associated with a small subset of SNPs.
+Following the practice in the research of Chong et al. \cite{Chong2017}, our model takes the form of
+$r_{t+1}=f\circ\phi(R_t)+\gamma,\quad\gamma\sim\mathcal{N}(0,\beta)$
+We assume the return of one hour prior to the current time point has influence on the return of the stock in the next minute, so $t$ is in unit of minutes. As mentioned above, $R_t = [r_{1,t},...,r_{1,t-60},...,r_{50,t},...,r_{50,t-60}]^T$ is the 500-dimensional raw level input vector. $\phi$ transforms the data to features, or representations, and will be learned by principal component analysis (PCA), autoencoder (AE), restricted Boltzmann machine (RBM), and other unsupervised learning techniques. $f$ is the predictor function, and will be learned using recurrent neural network (RNN), which seems to be the state of the art deep learning method for financial time series data analysis \cite{Abe2018}.
 
 \paragraph{Secret sauce, if any}
-I will employ a Lupine prior on transition matrices prefers sparse transition matrices and captures dependencies of transition probabilities between maneuvers on maneuver-features. Using a procedure reminiscent of automated relevance determination, enables robust recovery of relevant maneuver-features and their effect on transition matrices. The resulting transition matrices can be robustly associated with SNPs in our datasets ...
+We will also try to combine other statistical techniques such as univariate autoregressive model with ten lagged variables (AR(10)) with our proposed model. In addition, online learning techniques, model retraining, and data assimilation will be added to incorporate the latest data to improve the performance.
 
 \paragraph{How the model will be evaluated}
-I will evaluate performance of this method by using a held out dataset collected by our collaborators in New Mexico ...
-The metric we will use is the prediction error of a prey's location ... We will also perform bootstrap analysis to assess the sensitivity of our associations between evasion technique transitions and SNPs
 
 \paragraph{Anticipated challenges}
-It is possible that the two species employ different evasive maneuvers and a joint model might lead to blurring of the two behaviors.
-We will perform model selection and compare the performance of joint model vs. separate models for the two datasets. Regardless of outcome, this will result in
- useful observations about the similarities and differences of the two species.
+One of our key assumption is that
 
 \paragraph{The promise}
-Given the increasing costs in lupine health insurance, improvement in understanding prey evasive tactics could lead to reduction in hunt-related injuries and subsequently to significant reduction in health related costs.
+With increasing amount of investors entering into the market, satisfactory stock price prediction will bring higher return for investors and further improve in capital scale.
 
-\bibliographystyle{plain}
-\bibliography{evasion}
+\newpage
+\bibliography{proposal}
+\bibliographystyle{ieeetr}
 
 \end{document}
