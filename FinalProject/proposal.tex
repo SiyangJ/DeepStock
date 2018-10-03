@@ -13,7 +13,7 @@ Quantopian(www.quantopian.com) has ongoing minute-level US equity pricing and vo
 
 \paragraph{The model}
 Following the practice in the research of Chong et al. \cite{Chong2017}, our model takes the form of
-$r_{t+1}=f\circ\phi(R_t)+\gamma,\quad\gamma\sim\mathcal{N}(0,\beta)$
+$r_{t+1}=f\circ\phi(R_t)+\gamma,\,\gamma\sim\mathcal{N}(0,\beta)$.
 We assume the return of one hour prior to the current time point has influence on the return of the stock in the next minute, so $t$ is in unit of minutes. As mentioned above, $R_t = [r_{1,t},...,r_{1,t-60},...,r_{50,t},...,r_{50,t-60}]^T$ is the 500-dimensional raw level input vector. $\phi$ transforms the data to features, or representations, and will be learned by principal component analysis (PCA), autoencoder (AE), restricted Boltzmann machine (RBM), and other unsupervised learning techniques. $f$ is the predictor function, and will be learned using recurrent neural network (RNN), which seems to be the state of the art deep learning method for financial time series data analysis \cite{Abe2018}.
 
 \paragraph{Secret sauce, if any}
