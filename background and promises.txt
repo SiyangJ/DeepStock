@@ -1,3 +1,0 @@
-Problem and its relevance to investments: Stock price predictability is one of the most important concerns for investors. As machine learning technique evolve in the area of economy, there has been growing interest in high frequency algorithmic trading. Previous studies have mostly focused on stock price prediction at a low frequency, and high frequency prediction studies haven been uncommon. With the increasing availability of high-frequency trading data, better understanding of trading pattern will likely to lead to better prediction of stock price.
-
-Promises: With increasing amount of investors entering into the market, satisfactory stock price prediction will bring higher return for investors and further improve in capital scale.
