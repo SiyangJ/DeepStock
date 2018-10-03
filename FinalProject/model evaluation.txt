@@ -1,0 +1,9 @@
+Model Evaluation
+
+We evaluate the prediction model's performance based on four measurements:
+normalized mean squared error (NMSE),
+mean absolute error (MAE),
+root mean squared error (RMSE) and
+mutual information (MI).
+The training and test set are divided so that data from 2002 to 2017 is training set and data since 2017 is test set.
+We also employ bootstrap analysis on assessment of the accuracy of the estimator by random resampling with replacement from an original dataset.
