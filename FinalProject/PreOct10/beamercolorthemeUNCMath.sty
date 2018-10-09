@@ -1,0 +1,82 @@
+%
+% 
+%
+\RequirePackage{color}
+
+\mode<presentation>
+
+% Carolina blue is the default color scheme.
+% It's best to override the structure color in the 
+% main body when you're using this color theme, 
+% using the same \setbeamercolor*{structure}{fg=caroblue}
+% with whatever color you prefer.
+\definecolor{caroblue}{cmyk}{0.6,0.19,0.01,0.04}
+\setbeamercolor*{structure}{bg=caroblue}
+
+
+\setbeamercolor*{palette primary}{fg=structure.fg,bg=structure.bg}
+\setbeamercolor*{palette secondary}{fg=black,bg=structure.bg!40}
+\setbeamercolor*{palette tertiary}{fg=black,bg=structure.bg!20}
+\setbeamercolor*{palette quaternary}{fg=black,bg=structure.bg!5}
+
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=black}
+\setbeamercolor*{example text}{fg=black}
+
+\setbeamercolor*{itemize item}{fg=black!30}
+\setbeamercolor*{enumerate item}{fg=black}
+\setbeamercolor*{itemize subitem}{parent=itemize item}
+\setbeamercolor*{itemize subsubitem}{parent=itemize item}
+\setbeamercolor*{enumerate subitem}{parent=enumerate item}
+\setbeamercolor*{enumerate subsubitem}{parent=enumerate item}
+
+
+\setbeamercolor*{subtitle}{parent=normal text}
+\setbeamercolor*{author}{parent=normal text}
+\setbeamercolor*{affiliation}{parent=normal text}
+\setbeamercolor*{date}{parent=normal text}
+\setbeamercolor*{frametitle}{parent=normal text}
+
+\setbeamercolor*{author in head/foot}{parent=palette secondary}
+\setbeamercolor*{title in head/foot}{parent=normal text}
+\setbeamercolor*{date in head/foot}{parent=normal text}
+
+\setbeamercolor*{section in head/foot}{parent=normal text}
+\setbeamercolor*{subsection in head/foot}{parent=normal text}
+
+
+\setbeamercolor*{block title}{parent=palette tertiary}
+\setbeamercolor*{block title alerted}{parent=block title}
+\setbeamercolor*{block title example}{parent=block title}
+
+\setbeamercolor*{block body}{fg=black,bg=black!5}
+\setbeamercolor*{block body alerted}{parent=block body}
+\setbeamercolor*{block body example}{parent=block body}
+
+\setbeamercolor*{separation line}{parent=palette secondary}
+\setbeamercolor*{fine separation line}{parent=palette secondary}
+
+%%%%%%%%%%%%%%%
+%
+% Relic from another theme.
+%
+
+\providecommand*{\beamer@bftext@only}{%
+  \relax
+  \ifmmode
+    \expandafter\beamer@bftext@warning
+  \else
+    \expandafter\bfseries
+  \fi
+}
+\providecommand*{\beamer@bftext@warning}{%
+  \ClassWarning{beamer}
+    {Cannot use bold for alerted text in math mode}%
+}
+
+\setbeamerfont{alerted text}{series=\beamer@bftext@only}
+
+
+
+\mode
+<all>

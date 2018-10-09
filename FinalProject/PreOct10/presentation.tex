@@ -1,0 +1,170 @@
+% A sample beamer presentation showing 
+% what the UNCMath theme looks like.
+%
+% Key features of the template:
+%
+% - Little excess colors
+% - Using cleaner itemize/enumerate (no "spheres" or "balls")
+% - Simple color scheme; shades of "Carolina blue", grayscale
+% - small UNC logo in upper right of every slide.
+% - removal of some of the ugly default beamer things:
+% -- navigation menus
+% -- date in footer
+% -- page numbering in footer
+%
+% This is all with the purpose of improving the 
+% "usable" space with beamer, and removing 
+% the doodads that most people never 
+% use or look at when they present or 
+% watch someone with a beamer presentation.
+%
+% First version created by Manuchehr Aminian, April 2017.
+% Feel free to modify and share, make suggestions.
+% 
+% There's no need to credit me, but it would 
+% make me happy to know that people used it. 
+% Feel free to buy me food or drinks, though.
+%
+
+\documentclass{beamer}
+
+\usepackage{graphicx}
+%\usepackage{epstopdf}
+
+% Import the UNCMath theme.
+% UNC is the default color theme.
+\usetheme{UNCMath}
+
+% Uncomment to use a different color scheme.
+%\definecolor{darkpurple}{rgb}{0.2,0,0.2}
+%\setbeamercolor*{structure}{fg=black,bg=darkpurple}
+
+\logo{
+\includegraphics[height=3em]{oldwell_cmyk}
+}
+
+% A macro for making the title frame.
+% Removes the bottom bar and logo temporarily.
+% If you don't want these in other frames, 
+% you could try mimicking this.
+\newcommand{\titleframe}{
+{
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+\begin{frame}
+\titlepage
+\end{frame}
+}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Information for the title frame.
+%
+\title{DeepStock}
+\subtitle{COMP562 Final Project}
+\author[Siyang Jing \& Jiacheng Tian \& Jiyu Xu \& Yuhui Huang]{
+Siyang Jing, Jiacheng Tian, Jiyu Xu, Yuhui Huang
+}
+\institute{University of North Carolina, Chapel Hill}
+\date{Oct 10th, 2017}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Start of document.
+%
+\begin{document}
+
+% This is the titleframe, do it this way 
+% so that you don't have the logo on the title page.
+\titleframe
+
+
+\begin{frame}
+\frametitle{Background and Data}
+\begin{itemize}
+\item Bullets points are now gray.
+\item Theme files cleaned up and organized to fit 
+the spirit of the Beamer style file structure.
+\item Color schemes are now easily swappable by 
+setting the \texttt{structure} color in the header 
+of the \texttt{.tex} file 
+(an example is given in the comments of this 
+presentation).
+\item Some beamer elements have been integrated in 
+to the color scheme.
+\item A few minor tweaks were done to spacing.
+\item I still don't know how I feel about the ``infoline" 
+footer. Pretty ugly, but it adds some essential color 
+right now, and I don't know what I would replace it with 
+to fit this role.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Formulation of Problem}
+Here is another equation:
+%
+\begin{equation}
+\int_{-1}^1 \frac{1}{\sqrt{1-x^2}} dx = \pi.
+\end{equation}
+
+\begin{enumerate}
+\item hmm...
+    \begin{enumerate}
+    \item item
+    \end{enumerate}
+\item ok
+    \begin{itemize}
+    \item Now the bullets are gray.
+    \end{itemize}
+\end{enumerate}
+
+\end{frame}
+%
+\begin{frame}
+\frametitle{Method}
+
+The color theme has been streamlined and properly linked 
+to many of the beamer objects. For example, with a 
+theorem:
+
+\begin{theorem}[Intermediate Value Theorem]
+Suppose $f(x) : [a,b] \to \mathbb{R}$ is a 
+continuous function, and $f(a)f(b)<0$. Then 
+there exists a point $c \in (a,b)$ satisfying 
+$f(c)=0$.
+\end{theorem}
+
+However, there are still a few ``hard-coded" colors which 
+I don't think should be tied to the color scheme. 
+Primary text color, for instance.
+
+\end{frame}
+%
+\begin{frame}
+\frametitle{Evaluation and Promise}
+If you don't include a frame title, there won't be a horizontal 
+rule included, but the logo will still show. 
+If you don't want the logo in a frame like this 
+either, you need to mimick the behavior done with the 
+title page macro defined in the source file.
+\end{frame}
+%
+\begin{frame}
+\frametitle{References}
+
+These slides are modified from maminian's template\cite{UNCbeamer}.
+
+\bibliographystyle{ieeetr}
+\bibliography{presentation}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{oldwell_cmyk}
+\end{figure}
+\end{frame}
+%
+
+\end{document}
