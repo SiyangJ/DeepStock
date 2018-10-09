@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  8 OCT 2018 23:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  9 OCT 2018 00:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1035,7 +1035,7 @@ Package pdftex.def Info: oldwell_cmyk-eps-converted-to.pdf  used on input line
 (pdftex.def)             Requested size: 69.16263pt x 19.12527pt.
  [6
 
- </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>]
+]
 \tf@nav=\write6
 \openout6 = `presentation.nav'.
 
@@ -1054,10 +1054,10 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 17157 strings out of 492649
- 327534 string characters out of 6129622
- 401526 words of memory out of 5000000
- 20615 multiletter control sequences out of 15000+600000
+ 17164 strings out of 492649
+ 327810 string characters out of 6129622
+ 401516 words of memory out of 5000000
+ 20622 multiletter control sequences out of 15000+600000
  14180 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,21n,55p,779b,571s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1073,10 +1073,10 @@ al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
 l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/
 texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/t
 exlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on presentation.pdf (6 pages, 137083 bytes).
+Output written on presentation.pdf (6 pages, 135457 bytes).
 PDF statistics:
- 121 PDF objects out of 1000 (max. 8388607)
- 88 compressed objects within 1 object stream
+ 114 PDF objects out of 1000 (max. 8388607)
+ 84 compressed objects within 1 object stream
  14 named destinations out of 1000 (max. 500000)
  48 words of extra memory for PDF output out of 10000 (max. 10000000)
 
