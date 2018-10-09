@@ -6,6 +6,7 @@
 %\RequirePackage{graphicx}
 \RequirePackage{tabularx}
 \RequirePackage{calc}
+%\RequirePackage{natbib}
 
 \newlength\imageheight
 
@@ -21,6 +22,7 @@
 {
   \centering
   \usebeamerfont{title}\inserttitle\par
+  \vspace{0.2em}
   \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
 %  \bigskip
   \vspace{0.5em}
@@ -105,6 +107,22 @@
 \setbeamertemplate{sidebar right}{}
 
 \setbeamersize{text margin left=1em,text margin right=1em}
+
+% Bibliography stuff
+
+\bibliographystyle{ieeetr}
+% make bibliography entries smaller
+% \renewcommand\bibfont{\scriptsize}
+% If you have more than one page of references, you want to tell beamer
+% to put the continuation section label from the second slide onwards
+\setbeamertemplate{frametitle continuation}[from second]
+% Now get rid of all the colours
+\setbeamercolor*{bibliography entry title}{fg=black}
+\setbeamercolor*{bibliography entry author}{fg=black}
+\setbeamercolor*{bibliography entry location}{fg=black}
+\setbeamercolor*{bibliography entry note}{fg=black}
+% and kill the abominable icon
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 
 % Remove beamer navigation buttons.
 \beamertemplatenavigationsymbolsempty
