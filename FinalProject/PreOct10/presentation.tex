@@ -30,6 +30,8 @@
 
 \usepackage{graphicx}
 %\usepackage{epstopdf}
+\usepackage{color}
+\usepackage{textcomp}
 
 % Import the UNCMath theme.
 % UNC is the default color theme.
@@ -57,13 +59,15 @@
 }
 }
 
+%\renewcommand*{\bibfont}{\scriptsize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Information for the title frame.
 %
 \title{DeepStock}
-\subtitle{COMP562 Final Project}
+\subtitle{stock price prediction with deep learning}
 \author[Siyang Jing \& Jiacheng Tian \& Jiyu Xu \& Yuhui Huang]{
 Siyang Jing, Jiacheng Tian, Jiyu Xu, Yuhui Huang
 }
@@ -83,79 +87,72 @@ Siyang Jing, Jiacheng Tian, Jiyu Xu, Yuhui Huang
 
 \begin{frame}
 \frametitle{Background and Data}
+
 \begin{itemize}
-\item Bullets points are now gray.
-\item Theme files cleaned up and organized to fit 
-the spirit of the Beamer style file structure.
-\item Color schemes are now easily swappable by 
-setting the \texttt{structure} color in the header 
-of the \texttt{.tex} file 
-(an example is given in the comments of this 
-presentation).
-\item Some beamer elements have been integrated in 
-to the color scheme.
-\item A few minor tweaks were done to spacing.
-\item I still don't know how I feel about the ``infoline" 
-footer. Pretty ugly, but it adds some essential color 
-right now, and I don't know what I would replace it with 
-to fit this role.
+\item \textbf{Stock price prediction:} Previous studies have mostly focused on low frequency \cite{Kearns2013}. \textcolor{red}{Machine Learning + Big Data = High Frequency}.
+\item \textbf{Goal:} Predict stock price solely based on price and volume data (of its own and other stocks), without fundamental analysis.
+\item \textbf{Data:} 
+\begin{itemize}
+\item Minute-level US equity pricing and volume data since 2002. Five minute window.
+\item 50 largest stocks as ranked by market capitalization. 
+\item Stocks are correlated, so we will use 600 dimensional lagged stock returns (50 stocks and 12 lagged returns) as raw level input data.
+\item 2002-2017 as training set, 2017-2018 as test set.
+\end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Formulation of Problem}
-Here is another equation:
-%
-\begin{equation}
-\int_{-1}^1 \frac{1}{\sqrt{1-x^2}} dx = \pi.
-\end{equation}
+\frametitle{Model and Method}
+Following the practice in the research of Chong et al.\cite{Chong2017}, our model takes the form of
 
-\begin{enumerate}
-\item hmm...
-    \begin{enumerate}
-    \item item
-    \end{enumerate}
-\item ok
-    \begin{itemize}
-    \item Now the bullets are gray.
-    \end{itemize}
-\end{enumerate}
+\begin{align*}
+\mathbf{r}_{t} & =[r_1,r_2,...,r_{50}] \\
+\mathbf{R}_t & = [\mathbf{r}_t,\mathbf{r}_{t-1},...,\mathbf{r}_{t-12}]^T \\
+\mathbf{r}_{t+1} & =f\circ\phi(\mathbf{R}_t)
+\end{align*}
 
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\setlength{\partopsep}{0pt}
+$\phi$:
+\begin{itemize}
+	\item Data \textrightarrow\, Features, e.g. mean, variance, etc.
+	\item PCA, autoencoder, RBM, and other unsupervised learning techniques.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\setlength{\partopsep}{0pt}
+$f$:
+\begin{itemize}
+	\item Predictor function.
+	\item Recurrent Neural Network (RNN), state of the art for financial time series data analysis \cite{Abe2018}.
+\end{itemize}
+\end{column}
+\end{columns}
+
+%\footnotetext{We will try to include volume data later.}
 \end{frame}
-%
-\begin{frame}
-\frametitle{Method}
 
-The color theme has been streamlined and properly linked 
-to many of the beamer objects. For example, with a 
-theorem:
-
-\begin{theorem}[Intermediate Value Theorem]
-Suppose $f(x) : [a,b] \to \mathbb{R}$ is a 
-continuous function, and $f(a)f(b)<0$. Then 
-there exists a point $c \in (a,b)$ satisfying 
-$f(c)=0$.
-\end{theorem}
-
-However, there are still a few ``hard-coded" colors which 
-I don't think should be tied to the color scheme. 
-Primary text color, for instance.
-
-\end{frame}
-%
 \begin{frame}
 \frametitle{Evaluation and Promise}
-If you don't include a frame title, there won't be a horizontal 
-rule included, but the logo will still show. 
-If you don't want the logo in a frame like this 
-either, you need to mimick the behavior done with the 
-title page macro defined in the source file.
+
+\begin{itemize}
+\item \textbf{Measurements:} normalized mean squared error, mean absolute error, root mean squared error, and mutual information.\\
+\item \textbf{Bootstrap analysis:}  will be performed on assessment of the accuracy of the estimator by random resampling with replacement from the original dataset.
+\item \textbf{Sensitivity:} of the result with respect to each feature and each stock will also be analyzed.
+\end{itemize}
+
+\vspace{2em}
+\setlength\parindent{20pt}
+We believe an accurate prediction for stock price will lay a solid ground for a successful trading strategy. It will also shed light on the research of economics, finance, behavioral science, and mathematics.
+
 \end{frame}
 %
 \begin{frame}
-\frametitle{References}
+\frametitle{Thanks!}
 
 These slides are modified from maminian's template\cite{UNCbeamer}.
+\vspace{1em}
 
 %\bibliographystyle{ieeetr}
 \bibliography{presentation}

@@ -3,44 +3,46 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: presentation.aux
 The style file: ieeetr.bst
 Database file #1: presentation.bib
-You've used 1 entry,
+Warning--empty booktitle in Kearns2013
+You've used 4 entries,
             1876 wiz_defined-function locations,
-            484 strings with 3587 characters,
-and the built_in function-call counts, 147 in all, are:
-= -- 11
-> -- 4
+            502 strings with 4063 characters,
+and the built_in function-call counts, 825 in all, are:
+= -- 73
+> -- 31
 < -- 0
-+ -- 2
-- -- 1
-* -- 7
-:= -- 29
-add.period$ -- 1
-call.type$ -- 1
-change.case$ -- 1
++ -- 12
+- -- 8
+* -- 52
+:= -- 125
+add.period$ -- 4
+call.type$ -- 4
+change.case$ -- 4
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 4
-empty$ -- 19
-format.name$ -- 1
-if$ -- 33
+cite$ -- 5
+duplicate$ -- 43
+empty$ -- 89
+format.name$ -- 8
+if$ -- 199
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 0
-newline$ -- 6
-num.names$ -- 1
-pop$ -- 6
+int.to.str$ -- 4
+missing$ -- 3
+newline$ -- 15
+num.names$ -- 4
+pop$ -- 20
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 4
+skip$ -- 26
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 36
+swap$ -- 12
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 1
-width$ -- 2
-write$ -- 10
+warning$ -- 1
+while$ -- 6
+width$ -- 5
+write$ -- 35
+(There was 1 warning)
