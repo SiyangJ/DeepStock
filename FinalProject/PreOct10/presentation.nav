@@ -8,10 +8,8 @@
 \headcommand {\beamer@framepages {4}{4}}
 \headcommand {\slideentry {0}{0}{5}{5/5}{}{0}}
 \headcommand {\beamer@framepages {5}{5}}
-\headcommand {\slideentry {0}{0}{6}{6/6}{}{0}}
-\headcommand {\beamer@framepages {6}{6}}
-\headcommand {\beamer@partpages {1}{6}}
-\headcommand {\beamer@subsectionpages {1}{6}}
-\headcommand {\beamer@sectionpages {1}{6}}
-\headcommand {\beamer@documentpages {6}}
-\headcommand {\gdef \inserttotalframenumber {6}}
+\headcommand {\beamer@partpages {1}{5}}
+\headcommand {\beamer@subsectionpages {1}{5}}
+\headcommand {\beamer@sectionpages {1}{5}}
+\headcommand {\beamer@documentpages {5}}
+\headcommand {\gdef \inserttotalframenumber {5}}
