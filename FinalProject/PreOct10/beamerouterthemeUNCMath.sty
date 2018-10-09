@@ -1,0 +1,112 @@
+% UNCMath "outer" beamer style file. 
+% Defines the "skeleton" of the slides; 
+% title page, frame title, header, footer, etc.
+%
+
+%\RequirePackage{graphicx}
+\RequirePackage{tabularx}
+\RequirePackage{calc}
+
+\newlength\imageheight
+
+\mode<presentation>
+
+
+% Use traditional latex math font in beamer.
+\usefonttheme[onlymath]{serif}
+
+
+% Title page
+\defbeamertemplate*{title page}{UNCMath theme}
+{
+  \centering
+  \usebeamerfont{title}\inserttitle\par
+  \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+%  \bigskip
+  \vspace{0.5em}
+%
+  \textcolor{palette secondary.bg}{\rule{0.8\textwidth}{0.06em}}\\
+%
+  \bigskip
+%
+  \usebeamerfont{author}\insertauthor\par
+%
+  \bigskip
+%
+  \usebeamerfont{institute}\insertinstitute\par
+  \usebeamerfont{date}\insertdate\par
+  \usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
+}
+
+% Headline. This is what we use to insert the 
+% logo in the upper right.
+\defbeamertemplate*{headline}{UNCMath theme}
+{
+     \vspace{1em}
+     \begin{tabularx}{\textwidth}{@{}X@{}r@{}r@{}}
+          \hfill & \insertlogo & \hspace{1.5em}
+     \end{tabularx}
+     %
+     \settoheight\imageheight{\insertlogo}
+     \vspace{-\imageheight}
+%     \vspace{2em}
+}
+
+% Frame title.
+\defbeamertemplate*{frametitle}{UNCMath theme}
+{%
+    \ifx\insertframetitle\@empty
+          %
+    \else
+        \begin{tabularx}{0.75\textwidth}{@{}X@{}}%
+          \usebeamerfont{frametitle}\insertframetitle
+        \end{tabularx}\
+        %
+        \vphantom{g}% To avoid fluctuations per frame
+        \vspace{-0.1em} % Manually pull up the \rule.
+        \textcolor{palette secondary.bg}{\rule{0.75\linewidth}{0.05em}}
+    \fi
+}
+
+% Clean up the footer. Only have name and presentation title.
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{palette secondary}%
+	\usebeamerfont{author in head/foot}\insertshortauthor%
+  \end{beamercolorbox}%
+%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right]{palette tertiary}%
+	\usebeamerfont{title in head/foot}\insertshorttitle~~
+  \end{beamercolorbox}%
+%
+% If you really really want slide numbers, uncomment the lines
+% Starting from "\begin{beamercolorbox}" to "\end{beamercolorbox}",
+% and modify the wd=... for all three of these to fit.
+%
+%  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{foot3}%
+%	\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+%
+%#turning the next line into a comment, erases the frame numbers
+	%\insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+%
+%  \end{beamercolorbox}
+  }
+  \vskip0pt%
+}
+
+
+% Kill off other template parts just in case.
+\setbeamertemplate{sidebar canvas left}{}
+\setbeamertemplate{sidebar left}{}
+
+\setbeamertemplate{sidebar canvas right}{}
+\setbeamertemplate{sidebar right}{}
+
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+% Remove beamer navigation buttons.
+\beamertemplatenavigationsymbolsempty
+
+\mode<all>
