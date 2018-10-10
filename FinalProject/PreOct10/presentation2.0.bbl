@@ -1,0 +1,21 @@
+\begin{thebibliography}{1}
+
+\bibitem{Kearns2013}
+M.~Kearns and Y.~Nevmyvaka, ``Machine learning for market microstructure and
+  high frequency trading,'' 2013.
+
+\bibitem{Chong2017}
+E.~Chong, C.~Han, and F.~C. Park, ``Deep learning networks for stock market
+  analysis and prediction: Methodology, data representations, and case
+  studies,'' {\em Expert Systems with Applications}, vol.~83, pp.~187 -- 205,
+  2017.
+
+\bibitem{Abe2018}
+M.~{Abe} and H.~{Nakayama}, ``{Deep Learning for Forecasting Stock Returns in
+  the Cross-Section},'' {\em ArXiv e-prints}, Jan. 2018.
+
+\bibitem{UNCbeamer}
+maminian, ``uncmathbeamer.'' \url{https://github.com/maminian/uncmathbeamer},
+  2017.
+
+\end{thebibliography}

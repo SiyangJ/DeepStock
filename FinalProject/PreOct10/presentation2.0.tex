@@ -87,18 +87,25 @@ Siyang Jing, Jiacheng Tian, Jiyu Xu, Yuhui Huang
 
 \begin{frame}
 \frametitle{Background and Data}
-
+\centering
+\begin{tabular}{|c|c|} \hline
+Previous\footnotemark & Our Study \\ \hline
+Low Frequency & High Frequency \\
+(Daily) & (5-minute) \\ \hline
+Simple architecture & Recurrent Neural Network \\ \hline
+Price & Price and volume \\ \hline
+Simple data processing & Sophisticated feature engineering \\ \hline
+Offline learning & Online learning \\ \hline
+\end{tabular}
+\vspace{1em}
 \begin{itemize}
-\item \textbf{Stock price prediction:} Previous studies have mostly focused on low frequency \cite{Kearns2013}. \textcolor{red}{Machine Learning + Big Data = High Frequency}.
-\item \textbf{Goal:} Predict stock price solely based on price and volume data (of its own and other stocks), without fundamental analysis.
-\item \textbf{Data:} 
-\begin{itemize}
-\item Minute-level US equity pricing and volume data since 2002. Five minute window.
+\item Minute-level US equity pricing and volume data since 2000, collected using Google Finance API. Processed with five-minute window.
 \item 50 largest stocks as ranked by market capitalization. 
 \item Stocks are correlated, so we will use 600 dimensional lagged stock returns (50 stocks and 12 lagged returns) as raw level input data.
-\item 2002-2017 as training set, 2017-2018 as test set.
 \end{itemize}
-\end{itemize}
+
+\footnotetext[1]{According to a survey on the previous researches of stock price prediction \cite{Kearns2013}.}
+
 \end{frame}
 
 \begin{frame}
