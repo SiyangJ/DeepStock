@@ -34,9 +34,9 @@ Y_ID = Y
 ################### Train Data################
 tf.app.flags.DEFINE_string('data_path', ARGS['data_path'],
                            "Where to read data.")
-tf.app.flags.DEFINE_integer('X_ID', ARGS.getint('X_ID'),
+tf.app.flags.DEFINE_string('X_ID', ARGS['X_ID'],
                            "ID of X in data.")
-tf.app.flags.DEFINE_integer('Y_ID', ARGS.getint('Y_ID'),
+tf.app.flags.DEFINE_string('Y_ID', ARGS['Y_ID'],
                            "ID of Y in data.")
 tf.app.flags.DEFINE_float('sep', ARGS.getfloat('sep'), 
                           "Data split ratio")
@@ -75,6 +75,11 @@ tf.app.flags.DEFINE_integer('random_seed', ARGS.getint('random_seed'),
 tf.app.flags.DEFINE_bool('xavier_init', ARGS.getboolean('xavier_init'),
                          "Xavier initialization or truncated normal.")
 
+tf.app.flags.DEFINE_bool('l2_reg', ARGS.getboolean('l2_reg'),
+                         "Whether to do l2 regularization.")
+if FLAGS.l2_reg:
+    tf.app.flags.DEFINE_float('l2_reg_weight', ARGS.getfloat('l2_reg_weight'),
+                         "L2 regularization weight.")
 ## TODO
 ## Need to implement
 '''

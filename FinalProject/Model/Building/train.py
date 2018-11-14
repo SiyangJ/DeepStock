@@ -7,14 +7,13 @@ from generator import get_training_and_testing_generators
 from copy import deepcopy
 from config import FLAGS
 
-def _save_checkpoint(train_data, batch):
+def _save_checkpoint(train_data,epoch):
     td = train_data
     saver = tf.train.Saver()
-    model_path = os.path.join(FLAGS.checkpoint_dir,'snapshot_'+str(batch))
+    model_path = os.path.join(FLAGS.save_path,'snapshot_'+str(epoch))
     
     save_path = saver.save(td.sess, model_path) #, global_step=batch)
-    print("Model saved in file: %s" % save_path)
-   
+    print("Model saved in file: %s" % save_path)   
     print ('Model saved in file: %s' % saver.last_checkpoints)
 
 
