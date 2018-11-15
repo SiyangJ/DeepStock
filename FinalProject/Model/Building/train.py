@@ -16,8 +16,6 @@ def _save_checkpoint(train_data,batch):
     print("Model saved in file: %s" % save_path)   
     print ('Model saved in file: %s' % saver.last_checkpoints)
 
-
-
 def train_model(train_data):
     td = train_data
 
@@ -43,9 +41,8 @@ def train_model(train_data):
 
     while not done:
         batch += 1
-        gene_loss = disc_real_loss = disc_fake_loss = -1.234
-
-        train_X, train_Y = training_generator.next()
+        
+        train_X, train_Y = next(training_generator)
 
         feed_dict = {td.X_variable : train_X, 
                      td.Y_variable : train_Y, 
@@ -57,7 +54,7 @@ def train_model(train_data):
             ops = [td.train_minimize, td.loss, summaries,] 
             [_, loss, summary_vis] = td.sess.run(ops, feed_dict=feed_dict)
 
-            print('[%25s], iter [%4d], Lr[%1.8f] ,loss[%3.3f]'
+            print('[%25s], iter [%4d], Lr[%1.8f] ,loss[%3.10f]'
                             % (cur_time, batch, lrval, loss) )
             
             # Update learning rate
@@ -69,15 +66,20 @@ def train_model(train_data):
             ############## Editted Nov 04 by Siyang Jing
             ############## Try to add validation loss
             
-            val_X, val_Y = testing_generator.next()
-
+            val_X, val_Y = next(testing_generator)
+            
+            ############## Nov 14 working notes
+            ## Severe bug
+            ## How to enable different batch size???
+            ## and different seq_length???
+            
             val_feed_dict = {td.X_variable : val_X, 
                              td.Y_variable : val_Y}
             
             val_ops = [td.loss, summaries,] 
             [val_loss, val_summary] = td.sess.run(val_ops, feed_dict=val_feed_dict)
 
-            print('[%25s], validation: iter [%4d], loss[%3.3f]'
+            print('[%25s], validation: iter [%4d], loss[%3.10f]'
                             % (cur_time, batch, val_loss) )
             
             td.val_sum_writer.add_summary(val_summary, batch)

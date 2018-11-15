@@ -34,10 +34,10 @@ def setup_tensorflow():
 
 	## Editted by Siyang Jing on Nov 4
 	## Try to add validation summary writer
-	tf.gfile.MkDir('%s/training_log' % (FLAGS.checkpoint_dir,))
-	tf.gfile.MkDir('%s/validation_log' % (FLAGS.checkpoint_dir,))
-	summary_writer = tf.summary.FileWriter('%s/training_log' % (FLAGS.checkpoint_dir,), sess.graph_def)
-	val_sum_writer = tf.summary.FileWriter('%s/validation_log' % (FLAGS.checkpoint_dir,), sess.graph_def)
+	tf.gfile.MkDir('%s/training_log' % (FLAGS.save_path,))
+	tf.gfile.MkDir('%s/validation_log' % (FLAGS.save_path,))
+	summary_writer = tf.summary.FileWriter('%s/training_log' % (FLAGS.save_path,), sess.graph)
+	val_sum_writer = tf.summary.FileWriter('%s/validation_log' % (FLAGS.save_path,), sess.graph)
 
 	return sess, summary_writer, val_sum_writer
 
