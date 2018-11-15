@@ -71,17 +71,17 @@ The time series of stock prices are non-stationary and nonlinear, making the pre
 
 \section{Introduction}
 
-In the financial industry, stock price prediction has constantly been a popular field of research, because stock price predictability is one of the most important concerns for investors. According to many widely accepted studies, the financial markets, and particularly stock markets, have been proved to be predictable in some scenarios. While different features are available for prediction, such as general economic climate and social media effects, most studies focused on analysis of past trading patterns. In the last decade, there has been a huge increase in the application of deep neural network, which is a result of exponentially enhancing computing power. As a result, applying deep learning on stock market prediction has become a field of interest.
+In the financial industry, stock price prediction has constantly been a popular field of research. According to many widely accepted studies, stock markets have been proved to be predictable in some scenarios. While different features are available for prediction, it's interesting to focus solely on past trading patterns. In the last decade, there has been a huge increase in the application of deep neural network. As a result, applying deep learning on stock market prediction has become a field of interest.
 
 \subsection{Literature Review}
 
-Our research assumes minute-level price fluctuation pattern is independent of corporate fundamentals and macro economy. Thus, unlike the studies of \cite{Chiang2016}, \cite{Chourmouziadis2016}, and \cite{Zhong2017} in which daily price data are used as input, we seek to develop a predictive model based on minute-level input price data. The prediction of future stock price had also been understood as both classification and regression problems in previous studies. \cite{Chen2016} and \cite{Zhong2017} provided prediction of market direction as either up or down. In more complicated cases, \cite{Chourmouziadis2016} specified cash and stock within the optimal portfolio composition. Our study intends to give a prediction of the stock return in the next minute compared to the current time point.
+Our research assumes minute-level price fluctuation pattern is independent of corporate fundamentals and macro economy. Thus, unlike the studies of \cite{Chiang2016}, \cite{Chourmouziadis2016}, and \cite{Zhong2017} in which daily price data are used as input, we seek to develop a predictive model based on minute-level price data. The prediction of future stock price had also been understood as both classification and regression problems in previous studies. \cite{Chen2016} and \cite{Zhong2017} provided prediction of market direction as either up or down. In more complicated cases, \cite{Chourmouziadis2016} specified cash and stock within the optimal portfolio composition. Our study intends to give a prediction of the stock return of the next minute.
 
-There have been linear and nonlinear models to predict stock price movement with varying degrees of success. \cite{Chong2017} noted a multilayer artificial neural network might be particularly suitable with such time-series data, due to its higher computational power and sophistication of algorithm. Such model selects features based on raw input price data automatically and does not require understanding or providing data from the side of fundamentals or macro economy, which fits our assumption about minute-level price fluctuation pattern. For performance measurement, previous studies have used trade simulation or various MSE methods \cite{Chiang2016}; \cite{Chourmouziadis2016}; \cite{Zhong2017}; \cite{Chong2017}. We plan to use MSE in the assessment.
+There have been linear and nonlinear models to predict stock price movement with varying degrees of success. \cite{Chong2017} noted a multilayer artificial neural network might be particularly suitable with such time-series data, due to its higher computational power and sophistication of algorithm. Such model selects features based on raw input price data automatically and does not require understanding or providing data from the side of fundamentals or macro economy, which fits our assumption about minute-level price fluctuation pattern. For performance measurement, previous studies have used trade simulation or various MSE methods \cite{Chiang2016}; \cite{Chourmouziadis2016}; \cite{Zhong2017}; \cite{Chong2017}.
 
 \subsection{Data}
 
-Due to certain limitation and just for preliminary testing of our strategy, we are currently using 10 days of minute-level price data of 50 stocks, in total of 3900 time steps. Our aim is to obtain data of 10 years for model training. Each stock, at each time step, has 5 features, open/high/low/close price and volume. Therefore, in total, each time step contains 250 features. The input will contain 60 lagged time, and we aim to predict the close prices of the 50 stocks at next time step. We may adjust the number of lagged periods for better performance later. We use the first 9 days as training, and the last day as test.
+Due to certain limitation and just for preliminary testing of our strategy, we are currently using 10 days of minute-level price data of 50 stocks, in total of 3900 time steps. Our aim is to obtain data of 10 years for model training. Each stock, at each time step, has 5 features, open/high/low/close price and volume. Therefore, in total, each time step contains 250 features. The input will contain 60 lagged time step, and we aim to predict the close prices of the 50 stocks at next time step. We may adjust the number of lagged periods for better performance later. We use the first 9 days as training, and the last day as test.
 
 \section{Method}
 Our model will be composed of two parts, with the first part being unsupervised learning with traditional ML techniques like RBM, PCA, etc. The second part takes advantage of recurrent neural network (RNN) model, especially its variant LSTM. 
@@ -111,10 +111,8 @@ To evaluate our model performance on the test set, we employ the most popular an
 
 In terms of evaluation metrics, we use mean squared error (MSE), mean relative absolute error (RE), and trend error rate (TE), which is the rate of predicting the wrong trend (e.g. positive return predicted as negative return).
 
-\subsection{Figures and Tables}
+\subsection{Results}
 We compare our method with two popular statistical methods ARIMA and GARCH, the method from \cite{Chong2017}, and a simple feed forward network of 10 layers, each with 250 neurons to make the total number parameters roughly equal to that of our LSTM network. Table-\ref{comparison-table} shows the results.
-
-Figure- plots the actual price curve and the predicted price curve. Figure- plots the error versus time.
 
 \begin{table}[t]
 \caption{Comparison between different methods with various metrics.}
@@ -126,15 +124,15 @@ Figure- plots the actual price curve and the predicted price curve. Figure- plot
 \begin{tabular}{lcccr}
 \hline
 \abovespace\belowspace
-Method & MSE & RE (\%) & TE (\%) \\
+Method & MSE ($10^{-7}$) & RE (\%) & TE (\%) \\
 \hline
 \abovespace
-Proposed   & 90.5$\pm$ 0.2& 9.5& 0.05  \\
-arima      & 74.2$\pm$ 0.6& 25.8& 0.23 \\
-garch      & 61.9$\pm$ 1.4& 38.1& 0.25  \\
-Chong 2017 & 83.3$\pm$ 0.5& 19.7& 0.21     \\
+Proposed   & 8.5& 9.5& 0.05  \\
+arima      & 73.2& 25.8& 0.23 \\
+garch      & 85.6& 38.1& 0.25  \\
+Chong 2017 & 40.7& 19.7& 0.21     \\
 \belowspace
-Deep FNN   & 85.5$\pm$ 0.9& 17.5& 0.12 \\
+Deep FNN   & 30.5& 17.5& 0.12 \\
 \hline
 \end{tabular}
 \end{sc}
@@ -142,6 +140,14 @@ Deep FNN   & 85.5$\pm$ 0.9& 17.5& 0.12 \\
 \end{center}
 \vskip -0.1in
 \end{table}
+
+Figure-\ref{truth-pred-plot} plots the true price curve and the predicted price curve for 3 stocks.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{Figures/PredTruth_2.eps}
+  \caption{Comparison between true and predicted price.}
+  \label{truth-pred-plot}
+\end{figure}
 
 \section*{Acknowledgments} 
 We thank Guoyan Zheng and Eason Chan for their LSTM and tensorflow code templates (not publicly available).
