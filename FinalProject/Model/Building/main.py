@@ -4,25 +4,25 @@ from train import train_model
 import random
 import numpy as np
 import os
-from generator import get_training_and_testing_generators
-from copy import deepcopy
+#from generator import get_training_and_testing_generators
+#from copy import deepcopy
 from config import FLAGS
 
 
 def prepare_dirs(delete_train_dir=False):
 	# Create checkpoint dir (do not delete anything)
-	if not tf.gfile.Exists(FLAGS.checkpoint_dir):
-		tf.gfile.MakeDirs(FLAGS.checkpoint_dir)
+	if not tf.gfile.Exists(FLAGS.save_path):
+		tf.gfile.MakeDirs(FLAGS.save_path)
 	
 	# Cleanup train dir
 	if delete_train_dir:
-		if tf.gfile.Exists(FLAGS.checkpoint_dir):
-			tf.gfile.DeleteRecursively(FLAGS.checkpoint_dir)
-		tf.gfile.MakeDirs(FLAGS.checkpoint_dir)
+		if tf.gfile.Exists(FLAGS.save_path):
+			tf.gfile.DeleteRecursively(FLAGS.save_path)
+		tf.gfile.MakeDirs(FLAGS.save_path)
 
 def setup_tensorflow():
 	
-	config = tf.ConfigProto(log_device_placement=FLAGS.log_device_placement)
+	config = tf.ConfigProto()
 	sess = tf.Session(config=config)
 
 	# Initialize rng with a deterministic seed
@@ -47,27 +47,22 @@ class TrainData(object):
 
 
 def train():
-	prepare_dirs(delete_train_dir=True)
+	prepare_dirs(delete_train_dir=False)
 	sess, summary_writer, val_sum_writer = setup_tensorflow()
 
 
-	(tf_t1_input, tf_t2_input, tf_label, 
-            aux1_pred, aux2_pred, main_pred,
-            aux1_loss, aux2_loss, main_loss, 
-            loss, gene_vars, main_possibility) = create_model(train_phase=True)
+	(X_variable, Y_variable,
+     pred, loss, final_loss,
+     gene_vars) = create_model(train_phase=True)
 
-	train_minimize, learning_rate, global_step = create_optimizers(loss)
+	train_minimize, learning_rate, global_step = create_optimizers(final_loss)
 
 	train_data = TrainData(locals())
 	train_model(train_data)
-	
 
-	
 
 def main(argv=None):
 	train()
-
-
 
 
 if __name__ == '__main__':

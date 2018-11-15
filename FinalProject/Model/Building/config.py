@@ -82,7 +82,7 @@ if FLAGS.l2_reg:
                          "L2 regularization weight.")
 ## TODO
 ## Need to implement
-'''
+
 tf.app.flags.DEFINE_integer('learning_rate_reduce_life', ARGS.getint('learning_rate_reduce_life'), 
                             "Number of batches until learning rate is reduced. lr *= 0.1")
 tf.app.flags.DEFINE_float('learning_rate_percentage', ARGS.getfloat('learning_rate_percentage'), 
@@ -93,7 +93,7 @@ tf.app.flags.DEFINE_string('last_trained_checkpoint', ARGS['last_trained_checkpo
                            "The model used for testing")
 tf.app.flags.DEFINE_bool('restore_from_last', ARGS.getboolean('restore_from_last'), 
                          "whether start training from last trained checkpoint")
-'''
+
 
 def main():
     pass
