@@ -64,78 +64,54 @@
 ]
 
 \begin{abstract} 
-The time series of stock prices are non-stationary and nonlinear, making the prediction of future price trends much challenging. Inspired by Convolutional Neural Network (CNN), we make convolution
-on the time dimension to capture the long-term fluctuation features of
-stock series. To learn long-term dependencies of stock prices, we combine
-the time convolution with Long Short-Term Memory (LSTM), and propose
-a novel deep learning model named Time Convolution Long ShortTerm
-Memory (TC-LSTM) networks. TC-LSTM can obtain the stock
-longer data dependence and overall change pattern. The experiments on
-two real market datasets demonstrate that the proposed model outperforms
-other three baseline models in the mean square error.
+The time series of stock prices are non-stationary and nonlinear, making the prediction of future price trends much challenging. To learn long-term dependencies of stock prices, we first perform unsupervised learning to extract and construct useful features, then build a deep Long Short-Term Memory (LSTM) network to generate the prediction. The experiments on real market dataset demonstrate that the proposed model outperforms other three baseline models in the mean square error.
 \end{abstract} 
-
 
 \section{Introduction}
 
-In the financial industry, stock price prediction has constantly been a popular field of research, because stock price predictability is one of the most important concerns for investors. According to many widely accepted studies, the financial markets, and particularly stock markets, have been proved to be predictable in some scenarios. While different features are available for prediction, such as general economic climate and social media effects, most studies focused on analysis of past trading patterns. 
+In the financial industry, stock price prediction has constantly been a popular field of research, because stock price predictability is one of the most important concerns for investors. According to many widely accepted studies, the financial markets, and particularly stock markets, have been proved to be predictable in some scenarios. While different features are available for prediction, such as general economic climate and social media effects, most studies focused on analysis of past trading patterns. In the last decade, there has been a huge increase in the application of deep neural network, which is a result of exponentially enhancing computing power. As a result, applying deep learning on stock market prediction has become a field of interest.
+
+Previous studies have mostly focused on stock price prediction at a low frequency. Meanwhile, widely accepted study on high frequency prediction is still insufficient. With the increasing availability of high frequency trading data, better understanding of trading pattern will likely to lead to better prediction of stock price.
 
 \subsection{Literature Review}
 
 Our research assumes minute-level price fluctuation pattern is independent of corporate fundamentals and macro economy. Thus, unlike the studies of \cite{Chiang2016}, \cite{Chourmouziadis2016}, and \cite{Zhong2017} in which daily price data are used as input, we seek to develop a predictive model based on minute-level input price data. The prediction of future stock price had also been understood as both classification and regression problems in previous studies. \cite{Chen2016} and \cite{Zhong2017} provided prediction of market direction as either up or down. In more complicated cases, \cite{Chourmouziadis2016} specified cash and stock within the optimal portfolio composition. Our study intends to give a prediction of the stock return in the next minute compared to the current time point.
 
-There have been linear and nonlinear models to predict stock price movement with varying degrees of success. \cite{Chong2017} noted a multilayer artificial neural network might be particularly suitable with such time-series data, due to its higher computational power and sophistication of algorithm. Such model selects features based on raw input price data automatically and does not require understanding or providing data from the side of fundamentals or macro economy, which fits our assumption about minute-level price fluctuation pattern. Our model will be composed of two parts, with the first part being unsupervised learning with traditional ML techniques like RBM, PCA, etc. The second part takes advantage of recurrent neural network (RNN) model, especially its variant LSTM. For performance measurement, previous studies have used trade simulation or various MSE methods \cite{Chiang2016}; \cite{Chourmouziadis2016}; \cite{Zhong2017}; \cite{Chong2017}. We plan to use MSE in the assessment. 
+There have been linear and nonlinear models to predict stock price movement with varying degrees of success. \cite{Chong2017} noted a multilayer artificial neural network might be particularly suitable with such time-series data, due to its higher computational power and sophistication of algorithm. Such model selects features based on raw input price data automatically and does not require understanding or providing data from the side of fundamentals or macro economy, which fits our assumption about minute-level price fluctuation pattern. For performance measurement, previous studies have used trade simulation or various MSE methods \cite{Chiang2016}; \cite{Chourmouziadis2016}; \cite{Zhong2017}; \cite{Chong2017}. We plan to use MSE in the assessment.
 
 \subsection{Data}
 
-Due to certain limitation and just for preliminary testing of our strategy, we are currently using 10 days of minute-level price data of 50 stocks, but our aim is to obtain data of 10 years for model training. The input will be 500 dimensional lagged stock returns, which are the returns of 50 stocks in the previous 10 minutes. We may adjust the number of lagged periods for better performance later. We use the first 9 days as training, and the last day as test.
+Due to certain limitation and just for preliminary testing of our strategy, we are currently using 10 days of minute-level price data of 50 stocks, in total of 3900 time steps. Each stock, at each time step, has 5 features, open/high/low/close price and volume. Our aim is to obtain data of 10 years for model training. The input will contain 60 lagged time, and we aim to predict the close price of next time step. We may adjust the number of lagged periods for better performance later. We use the first 9 days as training, and the last day as test.
 
-\section{Method} 
+\section{Method}
+Our model will be composed of two parts, with the first part being unsupervised learning with traditional ML techniques like RBM, PCA, etc. The second part takes advantage of recurrent neural network (RNN) model, especially its variant LSTM. 
 
-\subsection{Figures}
+\subsection{Model}
+
+Following the practice in the research of Chong et al.\cite{Chong2017}, our model takes the form of
+\[r_{t+1}=f\circ\phi(R_t)+\gamma,\,\gamma\sim\mathcal{N}(0,\beta).\]
+We assume the return of one hour prior to the current time point has influence on the return of the stock in the next minute, so $t$ is in unit of minutes. As mentioned above, 
+\[R_t = [r_{1,t},...,r_{1,t-60},...,r_{50,t},...,r_{50,t-60}]^T\] 
+is the 500 dimensional raw level input vector. $\phi$ transforms the data to features, or representations. It hasn't been implemented. $f$ is the predictor function, and is learned using RNN, which seems to be the state of the art method \cite{Abe2018}. Specifically, we use a network with 10 layer, each with 1000 LSTM units.
+
+\subsection{Loss Function and Training}
+We can formulate the problem in two ways.
+\begin{enumerate}
+	\item Explicitly make the output dependent on the previous 60 time steps. We unroll the network for 60 time steps, and only calculate the MSE loss between the final output and the truth. This way, when we perform prediction, we should probably first run the model for 60 time steps and then only take the last output.
+	\item Make the training sequence to sequence, unroll the network for arbitrary time steps, and optimize against the MSE loss between the output sequence and the truth sequence.
+\end{enumerate}
  
-You may want to include figures in the paper to help readers visualize
-your approach and your results. Such artwork should be centered,
-legible, and separated from the text. Lines should be dark and at
-least 0.5~points thick for purposes of reproduction, and text should
-not appear on a gray background.
+\section{Preliminary Results} 
+We first transform the price data to returns, i.e.
+\[r_{t+1} = \frac{x_{t+1}-x_{t}}{x_{t}}.\]
+We then normalize the volume data by
+\[v_{n,t+1} = \frac{v_{n,t+1}-m_{n}}{\sigma_{n}},\]
+where $m_n$ and $\sigma_n$ are the mean and standard deviation of the volumes of all time steps of stock $n$.
 
-Label all distinct components of each figure. If the figure takes the
-form of a graph, then give a name for each axis and include a legend
-that briefly describes each curve. Do not include a title inside the
-figure; instead, be sure to include a caption describing your figure.
+\subsection{Evaluation}
+MSE, Relative Error, Trend Error
 
-You may float figures to the top or
-bottom of a column, and you may set wide figures across both columns
-(use the environment {\tt figure*} in \LaTeX), but always place
-two-column figures at the top or bottom of the page.
-
-\subsection{Algorithms}
-
-If you are using \LaTeX, please use the ``algorithm'' and ``algorithmic'' 
-environments to format pseudocode. These require 
-the corresponding stylefiles, algorithm.sty and 
-algorithmic.sty, which are supplied with this package. 
-Algorithm~\ref{alg:example} shows an example. 
-
-\begin{algorithm}[tb]
-   \caption{Bubble Sort}
-   \label{alg:example}
-\begin{algorithmic}
-   \STATE {\bfseries Input:} data $x_i$, size $m$
-   \REPEAT
-   \STATE Initialize $noChange = true$.
-   \FOR{$i=1$ {\bfseries to} $m-1$}
-   \IF{$x_i > x_{i+1}$} 
-   \STATE Swap $x_i$ and $x_{i+1}$
-   \STATE $noChange = false$
-   \ENDIF
-   \ENDFOR
-   \UNTIL{$noChange$ is $true$}
-\end{algorithmic}
-\end{algorithm}
- 
-\subsection{Tables} 
+\subsection{Figures and Tables}
  
 You may also want to include tables that summarize material. Like 
 figures, these should be centered, legible, and numbered consecutively. 
@@ -145,8 +121,7 @@ Table~\ref{sample-table}.
 % above and below tabular lines. 
 
 \begin{table}[t]
-\caption{Classification accuracies for naive Bayes and flexible 
-Bayes on various data sets.}
+\caption{Comparison between different methods with various metrics.}
 \label{sample-table}
 \vskip 0.15in
 \begin{center}
@@ -155,18 +130,15 @@ Bayes on various data sets.}
 \begin{tabular}{lcccr}
 \hline
 \abovespace\belowspace
-Data set & Naive & Flexible & Better? \\
+Method & MSE & RE & TE \\
 \hline
 \abovespace
-Breast    & 95.9$\pm$ 0.2& 96.7$\pm$ 0.2& $\surd$ \\
-Cleveland & 83.3$\pm$ 0.6& 80.0$\pm$ 0.6& $\times$\\
-Glass2    & 61.9$\pm$ 1.4& 83.8$\pm$ 0.7& $\surd$ \\
-Credit    & 74.8$\pm$ 0.5& 78.3$\pm$ 0.6&         \\
-Horse     & 73.3$\pm$ 0.9& 69.7$\pm$ 1.0& $\times$\\
-Meta      & 67.1$\pm$ 0.6& 76.5$\pm$ 0.5& $\surd$ \\
-Pima      & 75.1$\pm$ 0.6& 73.9$\pm$ 0.5&         \\
+Proposed   & 95.9$\pm$ 0.2& 96.7$\pm$ 0.2& $\surd$  \\
+arima      & 83.3$\pm$ 0.6& 80.0$\pm$ 0.6& $\times$ \\
+garch      & 61.9$\pm$ 1.4& 83.8$\pm$ 0.7& $\surd$  \\
+Chong 2017 & 74.8$\pm$ 0.5& 78.3$\pm$ 0.6&          \\
 \belowspace
-Vehicle   & 44.9$\pm$ 0.6& 61.5$\pm$ 0.4& $\surd$ \\
+Deep FNN   & 73.3$\pm$ 0.9& 69.7$\pm$ 1.0& $\times$ \\
 \hline
 \end{tabular}
 \end{sc}
@@ -175,42 +147,8 @@ Vehicle   & 44.9$\pm$ 0.6& 61.5$\pm$ 0.4& $\surd$ \\
 \vskip -0.1in
 \end{table}
 
-Tables contain textual material that can be typeset, as contrasted 
-with figures, which contain graphical material that must be drawn. 
-Specify the contents of each row and column in the table's topmost
-row. Again, you may float tables to a column's top or bottom, and set
-wide tables across both columns, but place two-column tables at the
-top or bottom of the page.
- 
-\subsection{Citations and References} 
-
-Please use APA reference format regardless of your formatter
-or word processor. If you rely on the \LaTeX\/ bibliographic 
-facility, use {\tt natbib.sty} and {\tt icml2014.bst} 
-included in the style-file package to obtain this format.
-
-Citations within the text should include the authors' last names and
-year. If the authors' names are included in the sentence, place only
-the year in parentheses, for example when referencing Arthur Samuel's
-pioneering work \yrcite{Samuel59}. Otherwise place the entire
-reference in parentheses with the authors and year separated by a
-comma \cite{Samuel59}. List multiple references separated by
-semicolons \cite{kearns89,Samuel59,mitchell80}. Use the `et~al.'
-construct only for citations with three or more authors or after
-listing all authors to a publication in an earlier reference \cite{MachineLearningI}.
-
-The references at the end of this document give examples for journal
-articles \cite{Samuel59}, conference publications \cite{langley00}, book chapters \cite{Newell81}, books \cite{DudaHart2nd}, edited volumes \cite{MachineLearningI}, 
-technical reports \cite{mitchell80}, and dissertations \cite{kearns89}. 
-
-Alphabetize references by the surnames of the first authors, with
-single author entries preceding multiple author entries. Order
-references for the same authors by year of publication, with the
-earliest first. Make sure that each reference includes all relevant
-information (e.g., page numbers).
-
 \section*{Acknowledgments} 
-Some of the codes are modified from Guoyan Zheng's code.
+Some of the codes are modified from Guoyan Zheng's code and Eason Chan's code (not publicly available).
 
 \bibliography{../Papers/Reference}
 \bibliographystyle{icml2014}
