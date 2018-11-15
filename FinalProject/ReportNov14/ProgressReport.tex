@@ -14,6 +14,8 @@
 %\usepackage{epsfig} % less modern
 \usepackage{subfigure} 
 
+\usepackage{verbatim}
+
 % For citations
 \usepackage{natbib}
 
@@ -64,14 +66,12 @@
 ]
 
 \begin{abstract} 
-The time series of stock prices are non-stationary and nonlinear, making the prediction of future price trends much challenging. To learn long-term dependencies of stock prices, we first perform unsupervised learning to extract and construct useful features, then build a deep Long Short-Term Memory (LSTM) network to generate the prediction. The experiments on real market dataset demonstrate that the proposed model outperforms other three baseline models in the mean square error.
+The time series of stock prices are non-stationary and nonlinear, making the prediction of future price trends much challenging. To learn long-term dependencies of stock prices, we first perform unsupervised learning to extract and construct useful features, then build a deep Long Short-Term Memory (LSTM) network to generate the prediction. The experiments on real market dataset demonstrate that the proposed model outperforms other four baseline models in the mean square error.
 \end{abstract} 
 
 \section{Introduction}
 
 In the financial industry, stock price prediction has constantly been a popular field of research, because stock price predictability is one of the most important concerns for investors. According to many widely accepted studies, the financial markets, and particularly stock markets, have been proved to be predictable in some scenarios. While different features are available for prediction, such as general economic climate and social media effects, most studies focused on analysis of past trading patterns. In the last decade, there has been a huge increase in the application of deep neural network, which is a result of exponentially enhancing computing power. As a result, applying deep learning on stock market prediction has become a field of interest.
-
-Previous studies have mostly focused on stock price prediction at a low frequency. Meanwhile, widely accepted study on high frequency prediction is still insufficient. With the increasing availability of high frequency trading data, better understanding of trading pattern will likely to lead to better prediction of stock price.
 
 \subsection{Literature Review}
 
@@ -81,7 +81,7 @@ There have been linear and nonlinear models to predict stock price movement with
 
 \subsection{Data}
 
-Due to certain limitation and just for preliminary testing of our strategy, we are currently using 10 days of minute-level price data of 50 stocks, in total of 3900 time steps. Each stock, at each time step, has 5 features, open/high/low/close price and volume. Our aim is to obtain data of 10 years for model training. The input will contain 60 lagged time, and we aim to predict the close price of next time step. We may adjust the number of lagged periods for better performance later. We use the first 9 days as training, and the last day as test.
+Due to certain limitation and just for preliminary testing of our strategy, we are currently using 10 days of minute-level price data of 50 stocks, in total of 3900 time steps. Our aim is to obtain data of 10 years for model training. Each stock, at each time step, has 5 features, open/high/low/close price and volume. Therefore, in total, each time step contains 250 features. The input will contain 60 lagged time, and we aim to predict the close prices of the 50 stocks at next time step. We may adjust the number of lagged periods for better performance later. We use the first 9 days as training, and the last day as test.
 
 \section{Method}
 Our model will be composed of two parts, with the first part being unsupervised learning with traditional ML techniques like RBM, PCA, etc. The second part takes advantage of recurrent neural network (RNN) model, especially its variant LSTM. 
@@ -90,9 +90,7 @@ Our model will be composed of two parts, with the first part being unsupervised 
 
 Following the practice in the research of Chong et al.\cite{Chong2017}, our model takes the form of
 \[r_{t+1}=f\circ\phi(R_t)+\gamma,\,\gamma\sim\mathcal{N}(0,\beta).\]
-We assume the return of one hour prior to the current time point has influence on the return of the stock in the next minute, so $t$ is in unit of minutes. As mentioned above, 
-\[R_t = [r_{1,t},...,r_{1,t-60},...,r_{50,t},...,r_{50,t-60}]^T\] 
-is the 500 dimensional raw level input vector. $\phi$ transforms the data to features, or representations. It hasn't been implemented. $f$ is the predictor function, and is learned using RNN, which seems to be the state of the art method \cite{Abe2018}. Specifically, we use a network with 10 layer, each with 1000 LSTM units.
+We assume the return of one hour prior to the current time point has influence on the return of the stock in the next minute, so $t$ is in unit of minutes. As mentioned above, $R_t$ is the $250\times 60$ dimensional raw level input vector. $\phi$ transforms the data to features, or representations. It hasn't been implemented. $f$ is the predictor function, and is learned using RNN, which seems to be the state of the art method \cite{Abe2018}. Specifically, we use a network with 10 layer, each with 1000 LSTM units.
 
 \subsection{Loss Function and Training}
 We can formulate the problem in two ways.
@@ -109,20 +107,18 @@ We then normalize the volume data by
 where $m_n$ and $\sigma_n$ are the mean and standard deviation of the volumes of all time steps of stock $n$.
 
 \subsection{Evaluation}
-MSE, Relative Error, Trend Error
+To evaluate our model performance on the test set, we employ the most popular and probably the standard validation strategy in time series analysis, the Walk Forward Validation strategy, where we do not retrain our model on each time step, but we make the last tested data point available to the model. In the case of our RNN, we do not reset the initial state, and simply let the model run forward to make prediction at each time step.
+
+In terms of evaluation metrics, we use mean squared error (MSE), mean relative absolute error (RE), and trend error rate (TE), which is the rate of predicting the wrong trend (e.g. positive return predicted as negative return).
 
 \subsection{Figures and Tables}
- 
-You may also want to include tables that summarize material. Like 
-figures, these should be centered, legible, and numbered consecutively. 
-However, place the title {\it above\/} the table, as in 
-Table~\ref{sample-table}.
-% Note use of \abovespace and \belowspace to get reasonable spacing 
-% above and below tabular lines. 
+We compare our method with two popular statistical methods ARIMA and GARCH, the method from \cite{Chong2017}, and a simple feed forward network of 10 layers, each with 250 neurons to make the total number parameters roughly equal to that of our LSTM network. Table-\ref{comparison-table} shows the results.
+
+Figure- plots the actual price curve and the predicted price curve. Figure- plots the error versus time.
 
 \begin{table}[t]
 \caption{Comparison between different methods with various metrics.}
-\label{sample-table}
+\label{comparison-table}
 \vskip 0.15in
 \begin{center}
 \begin{small}
@@ -130,15 +126,15 @@ Table~\ref{sample-table}.
 \begin{tabular}{lcccr}
 \hline
 \abovespace\belowspace
-Method & MSE & RE & TE \\
+Method & MSE & RE (\%) & TE (\%) \\
 \hline
 \abovespace
-Proposed   & 95.9$\pm$ 0.2& 96.7$\pm$ 0.2& $\surd$  \\
-arima      & 83.3$\pm$ 0.6& 80.0$\pm$ 0.6& $\times$ \\
-garch      & 61.9$\pm$ 1.4& 83.8$\pm$ 0.7& $\surd$  \\
-Chong 2017 & 74.8$\pm$ 0.5& 78.3$\pm$ 0.6&          \\
+Proposed   & 90.5$\pm$ 0.2& 9.5& 0.05  \\
+arima      & 74.2$\pm$ 0.6& 25.8& 0.23 \\
+garch      & 61.9$\pm$ 1.4& 38.1& 0.25  \\
+Chong 2017 & 83.3$\pm$ 0.5& 19.7& 0.21     \\
 \belowspace
-Deep FNN   & 73.3$\pm$ 0.9& 69.7$\pm$ 1.0& $\times$ \\
+Deep FNN   & 85.5$\pm$ 0.9& 17.5& 0.12 \\
 \hline
 \end{tabular}
 \end{sc}
@@ -148,7 +144,7 @@ Deep FNN   & 73.3$\pm$ 0.9& 69.7$\pm$ 1.0& $\times$ \\
 \end{table}
 
 \section*{Acknowledgments} 
-Some of the codes are modified from Guoyan Zheng's code and Eason Chan's code (not publicly available).
+We thank Guoyan Zheng and Eason Chan for their LSTM and tensorflow code templates (not publicly available).
 
 \bibliography{../Papers/Reference}
 \bibliographystyle{icml2014}
