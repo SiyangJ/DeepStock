@@ -111,7 +111,7 @@ To evaluate our model performance on the test set, we employ the most popular an
 
 In terms of evaluation metrics, we use mean squared error (MSE), mean relative absolute error (RE), and trend error rate (TE), which is the rate of predicting the wrong trend (e.g. positive return predicted as negative return).
 
-\subsection{Figures and Tables}
+\subsection{Results}
 We compare our method with two popular statistical methods ARIMA and GARCH, the method from \cite{Chong2017}, and a simple feed forward network of 10 layers, each with 250 neurons to make the total number parameters roughly equal to that of our LSTM network. Table-\ref{comparison-table} shows the results.
 
 Figure- plots the actual price curve and the predicted price curve. Figure- plots the error versus time.
@@ -126,15 +126,15 @@ Figure- plots the actual price curve and the predicted price curve. Figure- plot
 \begin{tabular}{lcccr}
 \hline
 \abovespace\belowspace
-Method & MSE & RE (\%) & TE (\%) \\
+Method & MSE ($10^{-7}$) & RE (\%) & TE (\%) \\
 \hline
 \abovespace
-Proposed   & 90.5$\pm$ 0.2& 9.5& 0.05  \\
-arima      & 74.2$\pm$ 0.6& 25.8& 0.23 \\
-garch      & 61.9$\pm$ 1.4& 38.1& 0.25  \\
-Chong 2017 & 83.3$\pm$ 0.5& 19.7& 0.21     \\
+Proposed   & 8.5& 9.5& 0.05  \\
+arima      & 73.2& 25.8& 0.23 \\
+garch      & 85.6& 38.1& 0.25  \\
+Chong 2017 & 40.7& 19.7& 0.21     \\
 \belowspace
-Deep FNN   & 85.5$\pm$ 0.9& 17.5& 0.12 \\
+Deep FNN   & 30.5& 17.5& 0.12 \\
 \hline
 \end{tabular}
 \end{sc}
