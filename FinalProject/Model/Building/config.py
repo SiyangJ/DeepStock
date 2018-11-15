@@ -31,6 +31,11 @@ X_ID = X
 Y_ID = Y
 '''
 
+tf.app.flags.DEFINE_integer('NUM_DAYS', ARGS.getint('NUM_DAYS'), 
+                            "Number of days in data.")
+tf.app.flags.DEFINE_integer('NUM_PER_DAY', ARGS.getint('NUM_PER_DAY'), 
+                            "Number of time steps in each day.")
+
 ################### Train Data################
 tf.app.flags.DEFINE_string('data_path', ARGS['data_path'],
                            "Where to read data.")
