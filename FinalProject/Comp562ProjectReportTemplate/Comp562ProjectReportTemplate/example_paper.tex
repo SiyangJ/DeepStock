@@ -1,0 +1,212 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2014 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2014,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+
+% use Times
+\usepackage{times}
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+
+% For citations
+\usepackage{natbib}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2014} with
+% \usepackage[nohyperref]{icml2014} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+\usepackage[accepted]{icml2014} 
+
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{PUT YOUR LAST NAMES HERE}
+
+\begin{document} 
+
+\twocolumn[
+\icmltitle{Project Report Template for Comp 562\\Introduction to Machine Learning}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2014
+% package.
+\icmlauthor{Your Name}{email@yourdomain.edu}
+\icmlauthor{Your CoAuthor's Name}{email@coauthordomain.edu}
+\icmlauthor{Your CoAuthor's Name}{email@coauthordomain.edu}
+
+% You may provide any keywords that you 
+% find helpful for describing your paper; these are used to populate 
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{boring formatting information, machine learning}
+
+\vskip 0.3in
+]
+
+\begin{abstract} 
+Use this template to write your final report for Comp 562. It is based on the paper template used in the International Conference on Machine Learning, one of the main machine learning conferences.
+\end{abstract} 
+
+
+\section{Final Submission}
+
+Your final submission will consist of two deliverables:  (1) a final report, and (2) a set of summary slides. Please check the course website for the appropriate deadlines. 
+
+\subsection{Final Report}
+
+Your final project report can be at most 4 pages long (include all text, appendices, figures, and anything else), with 1 additional page that can contain nothing but references, and must be written in the provided \LaTeX\ template. If you did this work in collaboration with someone else, or if someone else (such as another professor) had advised you on this work, your report must fully acknowledge their contributions. 
+
+At a minimum, your final report must describe the problem/application and motivation, survey related work, discuss your approach, and explain your results/conclusions/impact of your project. It should include enough detail such that someone else can reproduce your method and results. You are also required to provide a link to a github repository where your code is stored. You may look at previous projects or papers from the list in section 2 to get an idea of what should be included in your project report. You will likely end up with a better report if you start by writing a 6-7 page report and then edit it down to 4 pages of well-written and concise prose. Keep in mind if you have an exciting and novel idea for this project, we can extend your work and submit it to an appropriate machine learning conference. 
+
+Also, your report must also include a figure that graphically summarizes the main components of your project (e.g., your approach and how it relates to the application, etc.). Such a figure makes your paper much more accessible by providing a visual counterpart to the text. Developing such a short and clear figure can be quite time-consuming; so plan wisely and feel free to consult your advisor during this process or me. I will be reviewing your papers and give you my feedback so you can adjust some of its contents and send back a revised paper that will be posted online on the course website after the class ends. It is preferred to display your work online so other people can read about each other's work. If you are okay with having your final report posted online, be sure you give us explicit permission when you submit, as described below.
+
+\subsection{Final Poster}
+
+In addition to the final report, you are also required to prepare a poster overview of your project. Details on the poster are available in the project description.
+
+\section{Optional Suggestions for Your Paper and Formatting Guidance} 
+
+\subsection{Figures}
+ 
+You may want to include figures in the paper to help readers visualize
+your approach and your results. Such artwork should be centered,
+legible, and separated from the text. Lines should be dark and at
+least 0.5~points thick for purposes of reproduction, and text should
+not appear on a gray background.
+
+Label all distinct components of each figure. If the figure takes the
+form of a graph, then give a name for each axis and include a legend
+that briefly describes each curve. Do not include a title inside the
+figure; instead, be sure to include a caption describing your figure.
+
+You may float figures to the top or
+bottom of a column, and you may set wide figures across both columns
+(use the environment {\tt figure*} in \LaTeX), but always place
+two-column figures at the top or bottom of the page.
+
+\subsection{Algorithms}
+
+If you are using \LaTeX, please use the ``algorithm'' and ``algorithmic'' 
+environments to format pseudocode. These require 
+the corresponding stylefiles, algorithm.sty and 
+algorithmic.sty, which are supplied with this package. 
+Algorithm~\ref{alg:example} shows an example. 
+
+\begin{algorithm}[tb]
+   \caption{Bubble Sort}
+   \label{alg:example}
+\begin{algorithmic}
+   \STATE {\bfseries Input:} data $x_i$, size $m$
+   \REPEAT
+   \STATE Initialize $noChange = true$.
+   \FOR{$i=1$ {\bfseries to} $m-1$}
+   \IF{$x_i > x_{i+1}$} 
+   \STATE Swap $x_i$ and $x_{i+1}$
+   \STATE $noChange = false$
+   \ENDIF
+   \ENDFOR
+   \UNTIL{$noChange$ is $true$}
+\end{algorithmic}
+\end{algorithm}
+ 
+\subsection{Tables} 
+ 
+You may also want to include tables that summarize material. Like 
+figures, these should be centered, legible, and numbered consecutively. 
+However, place the title {\it above\/} the table, as in 
+Table~\ref{sample-table}.
+% Note use of \abovespace and \belowspace to get reasonable spacing 
+% above and below tabular lines. 
+
+\begin{table}[t]
+\caption{Classification accuracies for naive Bayes and flexible 
+Bayes on various data sets.}
+\label{sample-table}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lcccr}
+\hline
+\abovespace\belowspace
+Data set & Naive & Flexible & Better? \\
+\hline
+\abovespace
+Breast    & 95.9$\pm$ 0.2& 96.7$\pm$ 0.2& $\surd$ \\
+Cleveland & 83.3$\pm$ 0.6& 80.0$\pm$ 0.6& $\times$\\
+Glass2    & 61.9$\pm$ 1.4& 83.8$\pm$ 0.7& $\surd$ \\
+Credit    & 74.8$\pm$ 0.5& 78.3$\pm$ 0.6&         \\
+Horse     & 73.3$\pm$ 0.9& 69.7$\pm$ 1.0& $\times$\\
+Meta      & 67.1$\pm$ 0.6& 76.5$\pm$ 0.5& $\surd$ \\
+Pima      & 75.1$\pm$ 0.6& 73.9$\pm$ 0.5&         \\
+\belowspace
+Vehicle   & 44.9$\pm$ 0.6& 61.5$\pm$ 0.4& $\surd$ \\
+\hline
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+Tables contain textual material that can be typeset, as contrasted 
+with figures, which contain graphical material that must be drawn. 
+Specify the contents of each row and column in the table's topmost
+row. Again, you may float tables to a column's top or bottom, and set
+wide tables across both columns, but place two-column tables at the
+top or bottom of the page.
+ 
+\subsection{Citations and References} 
+
+Please use APA reference format regardless of your formatter
+or word processor. If you rely on the \LaTeX\/ bibliographic 
+facility, use {\tt natbib.sty} and {\tt icml2014.bst} 
+included in the style-file package to obtain this format.
+
+Citations within the text should include the authors' last names and
+year. If the authors' names are included in the sentence, place only
+the year in parentheses, for example when referencing Arthur Samuel's
+pioneering work \yrcite{Samuel59}. Otherwise place the entire
+reference in parentheses with the authors and year separated by a
+comma \cite{Samuel59}. List multiple references separated by
+semicolons \cite{kearns89,Samuel59,mitchell80}. Use the `et~al.'
+construct only for citations with three or more authors or after
+listing all authors to a publication in an earlier reference \cite{MachineLearningI}.
+
+The references at the end of this document give examples for journal
+articles \cite{Samuel59}, conference publications \cite{langley00}, book chapters \cite{Newell81}, books \cite{DudaHart2nd}, edited volumes \cite{MachineLearningI}, 
+technical reports \cite{mitchell80}, and dissertations \cite{kearns89}. 
+
+Alphabetize references by the surnames of the first authors, with
+single author entries preceding multiple author entries. Order
+references for the same authors by year of publication, with the
+earliest first. Make sure that each reference includes all relevant
+information (e.g., page numbers).
+
+\section*{Acknowledgments} 
+ 
+If you did this work in collaboration with someone else, or if someone else (such as another professor) had advised you on this work, your report must fully acknowledge their contributions. If you received external help or assistance on this project, you must cite these sources here in the acknowledgements section.  If you do not have anything to list in this section, write simply ``None.''
+
+\bibliography{example_paper}
+\bibliographystyle{icml2014}
+
+\end{document} 

@@ -1,0 +1,8 @@
+.git/
+.ipynb_checkpoints/
+.ipynb_checkpoints
+__pycache__/
+.data-00000-of-00001
+.index
+.meta
+.DS_Store
