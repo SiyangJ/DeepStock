@@ -12,10 +12,10 @@ def _PrepareData():
     data_Y = pd.read_hdf(FLAGS.data_path,FLAGS.Y_ID).values
     
     X,y = [],[]
-    total_batch = int(data_X.shape[0] / FLAGS.seq_length)
+    total_batch = int(data_X.shape[0] / FLAGS.NUM_PER_DAY)
     for i in range(total_batch):
-        X.append(data_X[i*FLAGS.seq_length:(i+1)*FLAGS.seq_length,:])
-        y.append(data_Y[i*FLAGS.seq_length:(i+1)*FLAGS.seq_length,:])
+        X.append(data_X[i*FLAGS.NUM_PER_DAY:(i+1)*FLAGS.NUM_PER_DAY,:])
+        y.append(data_Y[i*FLAGS.NUM_PER_DAY:(i+1)*FLAGS.NUM_PER_DAY,:])
     
     train_size=int(FLAGS.sep*len(X))
     split_index=[1]*train_size
@@ -49,12 +49,24 @@ def get_training_and_testing_generators():
 def data_generator(istrain=True,batch_size=1):
     X = _train_X if istrain else _test_X
     Y = _train_Y if istrain else _test_Y
-    L = len(X)
-    assert L>=batch_size, "Can't generate batch!"
-    i=np.arange(0,batch_size)
+    L = X.shape[0]
+    S = FLAGS.NUM_PER_DAY
+    d = FLAGS.seq_length
+    # assert L>=batch_size, "Can't generate batch!"
     while True:
-        yield X[i],Y[i]
-        i = (i+batch_size)%L
+        
+        i = np.random.randint(0,L,batch_size)
+        j = np.random.randint(0,S-d+1,batch_size)
+        
+        ret_X,ret_Y=[],[]
+        
+        for b in range(batch_size):
+            ret_X.append(X[i[b]][j[b]:j[b]+d])
+            ret_Y.append(Y[i[b]][j[b]:j[b]+d])
+            
+        ret_X=np.array(ret_X).astype('float32')
+        ret_Y=np.array(ret_Y).astype('float32')
+        yield ret_X,ret_Y
 
 def main():
     pass

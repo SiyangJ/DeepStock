@@ -50,6 +50,8 @@ tf.app.flags.DEFINE_float('sep', ARGS.getfloat('sep'),
 
 tf.app.flags.DEFINE_integer('seq_length', ARGS.getint('seq_length'), 
                             "Sequence length of one sample")
+assert FLAGS.seq_length <= FLAGS.NUM_PER_DAY, "Cannot generate long enough sequence."
+
 tf.app.flags.DEFINE_integer('batch_size', ARGS.getint('batch_size'), 
                             "Number of samples per batch.")
 tf.app.flags.DEFINE_integer('feature_num', ARGS.getint('feature_num'), 
