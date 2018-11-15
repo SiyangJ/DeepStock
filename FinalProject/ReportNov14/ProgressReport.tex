@@ -76,23 +76,21 @@ other three baseline models in the mean square error.
 \end{abstract} 
 
 
-\section{Final Submission}
+\section{Introduction}
 
-Your final submission will consist of two deliverables:  (1) a final report, and (2) a set of summary slides. Please check the course website for the appropriate deadlines. 
+In the financial industry, stock price prediction has constantly been a popular field of research, because stock price predictability is one of the most important concerns for investors. According to many widely accepted studies, the financial markets, and particularly stock markets, have been proved to be predictable in some scenarios. While different features are available for prediction, such as general economic climate and social media effects, most studies focused on analysis of past trading patterns. 
 
-\subsection{Final Report}
+\subsection{Literature Review}
 
-Your final project report can be at most 4 pages long (include all text, appendices, figures, and anything else), with 1 additional page that can contain nothing but references, and must be written in the provided \LaTeX\ template. If you did this work in collaboration with someone else, or if someone else (such as another professor) had advised you on this work, your report must fully acknowledge their contributions. 
+Our research assumes minute-level price fluctuation pattern is independent of corporate fundamentals and macro economy. Thus, unlike the studies of \cite{Chiang2016}, \cite{Chourmouziadis2016}, and \cite{Zhong2017} in which daily price data are used as input, we seek to develop a predictive model based on minute-level input price data. The prediction of future stock price had also been understood as both classification and regression problems in previous studies. \cite{Chen2016} and \cite{Zhong2017} provided prediction of market direction as either up or down. In more complicated cases, \cite{Chourmouziadis2016} specified cash and stock within the optimal portfolio composition. Our study intends to give a prediction of the stock return in the next minute compared to the current time point.
 
-At a minimum, your final report must describe the problem/application and motivation, survey related work, discuss your approach, and explain your results/conclusions/impact of your project. It should include enough detail such that someone else can reproduce your method and results. You are also required to provide a link to a github repository where your code is stored. You may look at previous projects or papers from the list in section 2 to get an idea of what should be included in your project report. You will likely end up with a better report if you start by writing a 6-7 page report and then edit it down to 4 pages of well-written and concise prose. Keep in mind if you have an exciting and novel idea for this project, we can extend your work and submit it to an appropriate machine learning conference. 
+There have been linear and nonlinear models to predict stock price movement with varying degrees of success. \cite{Chong2017} noted a multilayer artificial neural network might be particularly suitable with such time-series data, due to its higher computational power and sophistication of algorithm. Such model selects features based on raw input price data automatically and does not require understanding or providing data from the side of fundamentals or macro economy, which fits our assumption about minute-level price fluctuation pattern. Our model will be composed of two parts, with the first part being unsupervised learning with traditional ML techniques like RBM, PCA, etc. The second part takes advantage of recurrent neural network (RNN) model, especially its variant LSTM. For performance measurement, previous studies have used trade simulation or various MSE methods \cite{Chiang2016}; \cite{Chourmouziadis2016}; \cite{Zhong2017}; \cite{Chong2017}. We plan to use MSE in the assessment. 
 
-Also, your report must also include a figure that graphically summarizes the main components of your project (e.g., your approach and how it relates to the application, etc.). Such a figure makes your paper much more accessible by providing a visual counterpart to the text. Developing such a short and clear figure can be quite time-consuming; so plan wisely and feel free to consult your advisor during this process or me. I will be reviewing your papers and give you my feedback so you can adjust some of its contents and send back a revised paper that will be posted online on the course website after the class ends. It is preferred to display your work online so other people can read about each other's work. If you are okay with having your final report posted online, be sure you give us explicit permission when you submit, as described below.
+\subsection{Data}
 
-\subsection{Final Poster}
+Due to certain limitation and just for preliminary testing of our strategy, we are currently using 10 days of minute-level price data of 50 stocks, but our aim is to obtain data of 10 years for model training. The input will be 500 dimensional lagged stock returns, which are the returns of 50 stocks in the previous 10 minutes. We may adjust the number of lagged periods for better performance later. We use the first 9 days as training, and the last day as test.
 
-In addition to the final report, you are also required to prepare a poster overview of your project. Details on the poster are available in the project description.
-
-\section{Optional Suggestions for Your Paper and Formatting Guidance} 
+\section{Method} 
 
 \subsection{Figures}
  
@@ -215,7 +213,7 @@ information (e.g., page numbers).
  
 If you did this work in collaboration with someone else, or if someone else (such as another professor) had advised you on this work, your report must fully acknowledge their contributions. If you received external help or assistance on this project, you must cite these sources here in the acknowledgements section.  If you do not have anything to list in this section, write simply ``None.''
 
-\bibliography{example_paper}
+\bibliography{../Papers/Reference}
 \bibliographystyle{icml2014}
 
 \end{document} 
