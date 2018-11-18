@@ -13,15 +13,19 @@ from config import FLAGS
 
 
 def prepare_dirs(delete_train_dir=False):
+	## Theoretically, should do nothing. It's just test.
+	pass
+	'''    
 	# Create checkpoint dir (do not delete anything)
-	if not tf.gfile.Exists(FLAGS.checkpoint_dir):
-		tf.gfile.MakeDirs(FLAGS.checkpoint_dir)
+	if not tf.gfile.Exists(FLAGS.save_path):
+		tf.gfile.MakeDirs(FLAGS.save_path)
 	
 	# Cleanup train dir
 	if delete_train_dir:
-		if tf.gfile.Exists(FLAGS.train_dir):
-			tf.gfile.DeleteRecursively(FLAGS.train_dir)
-		tf.gfile.MakeDirs(FLAGS.train_dir)
+		if tf.gfile.Exists(FLAGS.save_path):
+			tf.gfile.DeleteRecursively(FLAGS.save_path)
+		tf.gfile.MakeDirs(FLAGS.save_path)
+	'''
 
 def setup_tensorflow():
 	

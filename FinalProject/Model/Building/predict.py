@@ -18,7 +18,7 @@ def predict(td):
     ## TODO
     ## Just for the purpose of testing.
     patch_num = 20
-    print '>> begin predicting for each patch'
+    print('>> begin predicting for each patch')
     for _i in  range(patch_num):
         _test_X, _test_Y = next(test_generator)
         feed_dict = { td.X_variable : _test_X, 
